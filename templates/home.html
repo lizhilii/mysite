@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    我的网站|首页
+{% endblock %}
+
+{% block nav_home_active %}active{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="container text-center" style="margin-bottom: 40px"><h3>欢迎来到我的博客</h3></div>
+        
+        <div id="container-chart" class="container" style="width: 60em;min-height:30em;max-height: 40em"></div>
+        <!-- 引入 highcharts.js -->
+        <script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+        <script>
+            // 图表配置
+            var options = {
+                chart: {
+                    type: 'line'                          //指定图表的类型，默认是折线图（line）
+                },
+                title: {
+                    text: null                // 标题
+                },
+                xAxis: {
+                    categories: {{ dates|safe }},   // x 轴分类
+                    tickmarkPlacement: 'on',
+                    title:{ text: '一周内阅读量'}
+                },
+                yAxis: {
+                    title: {
+                        text: null                // y 轴标题
+                    },
+                    labels: {
+                        enabled: false
+                    },
+                    gridLineDashStyle:'Dash'
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        }
+                    }
+                },
+                series: [{                              // 数据列
+                    name: '阅读量',                        // 数据列名
+                    data: {{ read_nums }}                    // 数据
+                }],
+                legend: {enabled: false},
+                credits: { enabled: false}, 
+            };
+            // 图表初始化函数
+            var chart = Highcharts.chart('container-chart', options);
+        </script>
+        <hr>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <h3>今天热门博客</h3>
+                        </li>
+                        {% for hot_blog in tody_hot_blogs %}
+                            <a href="{% url 'blog_detial' hot_blog.id %}" class="list-group-item">
+                                {{hot_blog.title}}({{ hot_blog.read_num_sum }})
+                            </a>
+                        {% empty %}
+                            <li class="list-group-item">暂无热门博客</li>
+                        {% endfor%}
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <h3>昨日热门博客</h3>
+                        </li>
+                        {% for hot_blog in yesterday_hot_blogs %}
+                            <a href="{% url 'blog_detial' hot_blog.id %}" class="list-group-item">
+                                {{hot_blog.title}}({{ hot_blog.read_num_sum }})
+                            </a>
+                        {% empty %}
+                            <li class="list-group-item">暂无热门博客</li>
+                        {% endfor%}
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <h3>周内热门博客</h3>
+                        </li>
+                        {% for hot_blog in week_ago_hot_blogs %}
+                            <a href="{% url 'blog_detial' hot_blog.id %}" class="list-group-item">
+                                {{hot_blog.title}}({{ hot_blog.read_num_sum }})
+                            </a>
+                        {% empty %}
+                            <li class="list-group-item">暂无热门博客</li>
+                        {% endfor%}
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <h3>月内热门博客</h3>
+                        </li>
+                        {% for hot_blog in month_ago_hot_blogs %}
+                            <a href="{% url 'blog_detial' hot_blog.id %}" class="list-group-item">
+                                {{hot_blog.title}}({{ hot_blog.read_num_sum }})
+                            </a>
+                        {% empty %}
+                            <li class="list-group-item">暂无热门博客</li>
+                        {% endfor%}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

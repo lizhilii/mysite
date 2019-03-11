@@ -1,0 +1,27 @@
+.blog:not(:last-child){
+    margin-bottom: 2em;
+    padding-bottom: 1em;
+    border-bottom: 1px solid #eee;
+}
+
+.blog h3{
+    margin-top: 0.5em; 
+}
+
+.blog .blog-info{
+    margin-bottom: 0;
+
+}
+
+div.django-ckeditor-widget{
+    width: 100%;
+}
+
+div.like{
+    color:#337ab7;
+    cursor: pointer;
+    display: inline-block;
+}
+.active{
+    color: red;
+}
