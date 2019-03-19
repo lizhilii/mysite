@@ -9,8 +9,12 @@
 {% block content %}
     <div class="container">
         <div class="container text-center" style="margin-bottom: 40px"><h3>欢迎来到我的博客</h3></div>
-        
-        <div id="container-chart" class="container" style="width: 60em;min-height:30em;max-height: 40em"></div>
+        <div class="container">
+            <div class="row">
+                <div id="container-chart" class="col-xs-10 col-xs-offset-1"></div>
+            </div>
+        </div>
+        <!--<div id="container-chart" class="container" style="width: 60em;min-height:30em;max-height: 40em"></div>-->
         <!-- 引入 highcharts.js -->
         <script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
         <script>
